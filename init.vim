@@ -80,7 +80,7 @@ noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap si :set splitright<CR>:vsplit<CR>
 
 noremap ww :wincmd w<CR>
-
+noremap w- :close<CR>
 
 " ==================== Tab management ====================
 " Create a new tab with tn
@@ -197,6 +197,11 @@ let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_metalinter_deadline = "5s"
+
+let g:go_term_height = 30
+let g:go_term_width = 30
+let g:go_term_enabled = 1
+let g:go_term_close_on_exit = 1
 
 " molokai
 let g:rehash256 = 1

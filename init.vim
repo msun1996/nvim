@@ -222,14 +222,20 @@ endfunction
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-
-
-autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-autocmd Filetype go nmap <M-CR> :GoReferrers<CR>
-autocmd Filetype go nmap <M-\>  :GoImplements<CR>
+autocmd Filetype go nnoremap gr :GoReferrers<CR>
+autocmd Filetype go nnoremap gi :GoImplements<CR>
+autocmd Filetype go nnoremap gc :GoCallees<CR>
+autocmd Filetype go nnoremap ga :GoAlternate
+autocmd Filetype go nnoremap gm :GoMetaLinter
+autocmd Filetype go nnoremap gv :GoVet
+autocmd Filetype go nnoremap gp :GoChannelPeers
+autocmd Filetype go nnoremap fs :GoFillStruct<CR>
+autocmd Filetype go nnoremap fk :GoKeyify<CR>
+autocmd Filetype go nnoremap <leader>gd :GoDescribe<CR>
+autocmd Filetype go nnoremap <leader>ce :GoCallees<CR>
+autocmd Filetype go nnoremap <leader>cr :GoCallers<CR>
+autocmd Filetype go nnoremap <leader>si :GoSameIdsToggle<CR>
+autocmd Filetype go nnoremap <leader>ds :GoDefStack<CR>
 
 "============= vim-airline ===========
 let g:airline#extensions#tabline#enabled = 1

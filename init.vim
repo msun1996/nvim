@@ -62,9 +62,10 @@ imap <C-Q> <ESC>:q!<CR>
 cmap <C-Q> <Esc>:q!<CR>
 
 " ==================== Buffer =======================
-nnoremap `<Left> :bp<CR>
-nnoremap `<Right> :bn<CR>
-nnoremap `- :bd<CR>
+nnoremap b<Left> :bp<CR>
+nnoremap b<Right> :bn<CR>
+noremap bb :bn<CR>
+nnoremap b- :bd<CR>
 
 
 " ==================== Terminal Behaviors ====================
@@ -92,6 +93,7 @@ noremap <tab><Right> :+tabnext<CR>
 noremap <tab>, :-tabmove<CR>
 noremap <tab>. :+tabmove<CR>
 
+noremap <tab><tab> :tabnext<CR>
 
 " Compile function
 noremap r :call CompileRunGcc()<CR>

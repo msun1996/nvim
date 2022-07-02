@@ -61,11 +61,15 @@ nmap <C-Q> :q!<CR>
 imap <C-Q> <ESC>:q!<CR>
 cmap <C-Q> <Esc>:q!<CR>
 
+" ==================== Buffer =======================
+nnoremap `<Left> :bp<CR>
+nnoremap `<Right> :bn<CR>
+nnoremap `- :bd<CR>
+
+
 " ==================== Terminal Behaviors ====================
 let g:neoterm_autoscroll = 1
 autocmd TermOpen term://* startinsert
-tnoremap <C-N> <C-\><C-N>
-tnoremap <C-O> <C-\><C-N><C-O>
 
 " ==================== Window management ====================
 " split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
@@ -74,14 +78,16 @@ noremap se :set splitbelow<CR>:split<CR>
 noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap si :set splitright<CR>:vsplit<CR>
 
+noremap w :wincmd w<CR>
+
 
 " ==================== Tab management ====================
 " Create a new tab with tn
-noremap <tab>n :tabe<CR>
-noremap <tab>U :tab split<CR>
+noremap <tab>= :tabe<CR>
+noremap <tab>- :tabc<CR>
 " Move around tabs with tn and ti
 noremap <tab><Left> :-tabnext<CR>
-noremap <tab><Right>  :+tabnext<CR>
+noremap <tab><Right> :+tabnext<CR>
 " Move the tabs with tmn and tmi
 noremap <tab>, :-tabmove<CR>
 noremap <tab>. :+tabmove<CR>
@@ -127,12 +133,16 @@ Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] 
 Plug 'dkarter/bullets.vim'
 
 " File navigation
+" pre install https://github.com/BurntSushi/ripgrep#installation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Other visual enhancement
+" status line 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Easily identify bracket levels when editing
 Plug 'luochen1990/rainbow'
-Plug 'mg979/vim-xtabline'
 
 call plug#end()
 
@@ -149,26 +159,6 @@ nmap <tab><tab> :CocCommand explorer<CR>
 
 let g:fzf_preview_window = 'right:40%'
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-function! s:list_buffers()
-  redir => list
-  silent ls
-  redir END
-  return split(list, "\n")
-endfunction
-
-function! s:delete_buffers(lines)
-  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
-endfunction
-
-command! BD call fzf#run(fzf#wrap({
-  \ 'source': s:list_buffers(),
-  \ 'sink*': { lines -> s:delete_buffers(lines) },
-  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
-  \ }))
-
-noremap <c-d> :BD<CR>
-
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 
 noremap <silent> <C-f> :Rg<CR>
@@ -231,13 +221,11 @@ autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+autocmd Filetype go nmap <M-CR> :GoReferrers<CR>
+autocmd Filetype go nmap <M-\>  :GoImplements<CR>
 
-" ==================== xtabline ====================
-let g:xtabline_settings = {}
-let g:xtabline_settings.enable_mappings = 0
-let g:xtabline_settings.tabline_modes = ['tabs', 'buffers']
-let g:xtabline_settings.enable_persistance = 0
-let g:xtabline_settings.last_open_first = 1
-noremap to :XTabCycleMode<CR>
-noremap \p :echo expand('%:p')<CR>
+"============= vim-airline ===========
+let g:airline#extensions#tabline#enabled = 1
 
+"============= Rainbow ================
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle

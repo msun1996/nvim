@@ -78,7 +78,7 @@ noremap se :set splitbelow<CR>:split<CR>
 noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 noremap si :set splitright<CR>:vsplit<CR>
 
-noremap w :wincmd w<CR>
+noremap ww :wincmd w<CR>
 
 
 " ==================== Tab management ====================
@@ -153,7 +153,7 @@ let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-explorer']
 
-nmap <tab><tab> :CocCommand explorer<CR>
+nmap <tab>e :CocCommand explorer<CR>
 
 " ==================== FZF ====================
 
